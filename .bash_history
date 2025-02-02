@@ -195,3 +195,5 @@ ansible-playbook -i inventory deploy.yml
 ip a
 exti
 exit
+git remote add origin https://github.com/tayirova/all-practices/tree/main/Практическое%20задание.%20№10/part1
+exit
