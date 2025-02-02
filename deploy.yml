@@ -1,0 +1,11 @@
+- hosts: all
+  become: true
+  tasks:
+    - name: Pull Docker image
+      command: docker pull norjonoy/webapp
+
+    - name: Stop and remove existing container (if any)
+      command: docker rm -f webapp || true
+
+    - name: Run new container
+      command: docker run -d --name webapp -p 8080:80 norjonoy/webapp
