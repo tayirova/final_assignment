@@ -13,19 +13,11 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Log in to Docker Hub
-      run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
-
-    - name: Build Docker image
-      run: docker build -t norjonoy/webapp .
-
-    - name: Push Docker image
-      run: docker push norjonoy/webapp
+    - name: Install Dependencies
+      run: |
+        sudo apt update
+        sudo apt install -y ansible sshpass
 
     - name: Run Ansible Playbook
-      uses: appleboy/ansible-playbook-action@v2
-      with:
-        playbook: deploy.yml
-        inventory: inventory
-        options: -i inventory
-        extra_vars: ""
+      run: |
+        ansible-playbook -i inventory deploy.yml
